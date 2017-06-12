@@ -60,9 +60,9 @@ static float get_weight(byte times)
     return raw_kg;
 }
 
-static int scale_read(int32_t *val_int, int32_t *multiplier)
+void read_tare_button (void)
 {
-    unsigned long currentMillis;
+
     int button_value_current =  digitalRead(BUTTON_PIN);
 
     /* Tares de scale when the button is pressed */
@@ -77,7 +77,12 @@ static int scale_read(int32_t *val_int, int32_t *multiplier)
     }
 
     button_value_previous = button_value_current;
+}
 
+static int scale_read(int32_t *val_int, int32_t *multiplier)
+{
+    unsigned long currentMillis;
+    
     /*
      * Read only on interval
      */
@@ -133,4 +138,5 @@ void setup(void)
 void loop(void)
 {
     thing.run();
+    read_tare_button ();
 }
